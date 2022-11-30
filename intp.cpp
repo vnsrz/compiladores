@@ -1,7 +1,41 @@
 #include <iostream>
+#include <variant>
+#include <string>
 
 using namespace std;
 using token = char;
+
+using token_t = pair <int, variant<int, string>>;
+const int num=256, ID=257;
+
+token_t next_token(){
+    while(not cin.eof())
+    {
+        auto c = cin.get();
+        int v = c-'0';
+
+        if(isdigit(c)){
+            while(not cin.eof() and (c=cin.get(), isdigit(c))){
+                v= 10*v+(c-'0');
+            }
+            cin.unget();
+            return{num,v};
+        }else if(c=='_' or isalpha(c))
+                {
+                    string lexema;
+                    lexema += c;
+
+                        while(not cin.eof() and (c=cin.get(), c=='_' or isalnum(c)))
+                        {
+                            lexema+=c;
+                        }
+                        cin.unget();
+                        return{ID,lexema};
+                }else 
+                return{c,NULL};
+    }
+    return{EOF,NULL};
+}
 
 token proximo_token(){
     auto t = cin.get();
