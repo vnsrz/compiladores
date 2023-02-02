@@ -1,0 +1,1 @@
+flex lex.l && gcc -o a lex.yy.c
