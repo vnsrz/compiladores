@@ -440,8 +440,8 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "lex.l"
 /***
-Vinicius Roriz Meireles Silva - 190020814
-
+Vinicius Roriz Meireles Silva   - 190020814
+Caio Santos                     - 170007413
 ***/
 #line 7 "lex.l"
     int tritongo = 0; int ditongo = 0; int palavra = 0; int vogais_seguidas = 0; int aux = 0; char lr = 'n';
@@ -730,7 +730,7 @@ YY_RULE_SETUP
 case 2:
 YY_RULE_SETUP
 #line 12 "lex.l"
-{   if(vogais_seguidas == 3){
+{   if(vogais_seguidas >= 3){
                         if(aux == 1){
                             ditongo--;
                             tritongo++;
@@ -747,7 +747,7 @@ case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
 #line 24 "lex.l"
-{   if(vogais_seguidas == 3){
+{   if(vogais_seguidas >= 3){
                         if(aux == 1){
                             ditongo--;
                             tritongo++;
@@ -755,11 +755,11 @@ YY_RULE_SETUP
                             tritongo++;
                         }
                     } else if (vogais_seguidas == 2 && aux == 0) ditongo++;
-                    palavra++; aux = 0; vogais_seguidas = 0; lr = 'n';}
+                    if(lr != 'n') palavra++; aux = 0; vogais_seguidas = 0; lr = 'n';}
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
 #line 33 "lex.l"
-{   if(vogais_seguidas == 3){
+{   if(vogais_seguidas >= 3){
                         if(aux == 1){
                             ditongo--;
                             tritongo++;
